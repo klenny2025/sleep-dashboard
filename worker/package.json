@@ -1,0 +1,6 @@
+{
+  "name": "sleep-dashboard-worker",
+  "private": true,
+  "type": "module",
+  "devDependencies": {}
+}

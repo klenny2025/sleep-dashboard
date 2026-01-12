@@ -1,0 +1,16 @@
+name = "sleep-dashboard-api"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+DEFAULT_COUNTRY = "PE"
+DEFAULT_TIMEZONE = "America/Lima"
+DEFAULT_REQUIRED_SCHEDULE = "MON_FRI"
+DEFAULT_EXCLUDE_HOLIDAYS = "1"
+MIN_SLEEP_MINUTES = "345"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sleep_db"
+database_id = "2914365f-189f-4b75-97a9-64fa194d591c"

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    window.__API_BASE__ = "https://sleep-dashboard-api.sleep-rbyrd.workers.dev";
+    window.__MIN_SLEEP_MINUTES__ = 345;
+  </script>
+  <title>Mensual · Registro iSleep – RB&RD</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="monthly">
+<header class="topbar">
+  <div class="brand">
+    <img src="./assets/logo-rbrd.jpg" alt="RB&RD" />
+    <div>
+      <div class="title">Registro iSleep – RB&RD</div>
+      <div class="sub">Control diario y ranking mensual</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html" data-nav="home">Hoy</a>
+    <a href="./monthly.html" data-nav="monthly">Mensual</a>
+    <a href="./records.html" data-nav="records">Registros</a>
+    <a href="./media.html" data-nav="media">Archivos</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero hero-small">
+    <div>
+      <h1>Resumen mensual</h1>
+      <p class="lead">KPIs y ranking. Los feriados se pueden agregar/quitar (para excluir de requeridos).</p>
+    </div>
+    <div class="card hero-card">
+      <div class="field">
+        <label for="monthPicker">Mes</label>
+        <input id="monthPicker" type="month" />
+      </div>
+      <button class="btn" id="refreshBtn">Actualizar</button>
+      <div id="monthMeta" class="meta">—</div>
+    </div>
+  </section>
+
+  <section class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-title">Cumplimiento promedio</div>
+      <div id="kpiCompliance" class="kpi-value">—</div>
+      <div class="kpi-sub">Días con registro / días requeridos</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Promedio de sueño</div>
+      <div id="kpiSleepAvg" class="kpi-value">—</div>
+      <div class="kpi-sub">Ignora “Pendiente”</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Top 3</div>
+      <ol id="kpiTop3" class="small" style="margin:8px 0 0; padding-left: 18px;"></ol>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Bottom 3</div>
+      <ol id="kpiBottom3" class="small" style="margin:8px 0 0; padding-left: 18px;"></ol>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <div class="card-h">
+        <h2>Cumplimiento (%)</h2>
+        <div class="small">Ordenado por cumplimiento</div>
+      </div>
+      <div class="chart">
+        <canvas id="rankChart" height="180"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">
+        <h2>Ranking (detalle)</h2>
+        <div class="small">Filtra por nombre</div>
+      </div>
+
+      <div class="row">
+        <div class="field grow">
+          <label for="rankFilter">Filtrar</label>
+          <input id="rankFilter" type="text" placeholder="Buscar..." />
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" id="rankingTable">
+          <thead>
+            <tr>
+              <th>Trabajador</th>
+              <th>Reg.</th>
+              <th>Req.</th>
+              <th>Cumplimiento</th>
+              <th>Prom.</th>
+              <th>Máx.</th>
+              <th>Mín.</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:12px;">
+    <div class="card-h">
+      <h2>Feriados (Perú)</h2>
+      <div class="small">Se excluyen de “días requeridos” si el trabajador tiene “excluir feriados = Sí”.</div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="holidayDate">Fecha</label>
+        <input id="holidayDate" type="date" />
+      </div>
+      <div class="field grow">
+        <label for="holidayName">Nombre</label>
+        <input id="holidayName" type="text" placeholder="Ej: Aniversario empresa" />
+      </div>
+      <div class="field">
+        <label for="holidayRequired">¿Obligatorio?</label>
+        <select id="holidayRequired">
+          <option value="0" selected>No</option>
+          <option value="1">Sí</option>
+        </select>
+      </div>
+      <button class="btn" id="addHolidayBtn">Agregar</button>
+    </div>
+
+    <div class="row">
+      <button class="btn" id="seedHolidaysBtn">Cargar feriados (2026–2030)</button>
+      <button class="btn" id="clearDemoBtn" style="border-color:rgba(225,29,72,.35)">Borrar datos demo</button>
+      <button class="btn" id="seedDemoBtn">Crear datos demo</button>
+      <div class="meta" id="holidayMeta" style="margin-left:auto">—</div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table" id="holidaysTable">
+        <thead><tr><th>Fecha</th><th>Nombre</th><th>Obligatorio</th><th>Acción</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    window.__API_BASE__ = "https://sleep-dashboard-api.sleep-rbyrd.workers.dev";
+    window.__MIN_SLEEP_MINUTES__ = 345;
+  </script>
+  <title>Hoy · Registro iSleep – RB&RD</title>
+  
+</head>
+<body data-page="home">
+<header class="topbar">
+  <div class="brand">
+    <img src="./assets/logo-rbrd.jpg" alt="RB&RD" />
+    <div>
+      <div class="title">Registro iSleep – RB&RD</div>
+      <div class="sub">Control diario y ranking mensual</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html" data-nav="home">Hoy</a>
+    <a href="./monthly.html" data-nav="monthly">Mensual</a>
+    <a href="./records.html" data-nav="records">Registros</a>
+    <a href="./media.html" data-nav="media">Archivos</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Entregas del día</h1>
+      <p class="lead">Estado por trabajador: <b>Cumple</b> (verde), <b>No cumple</b> (rojo) o <b>Pendiente</b> (amarillo si OCR falló).</p>
+    </div>
+
+    <div class="card hero-card">
+      <div class="field">
+        <label for="todayPicker">Día</label>
+        <input id="todayPicker" type="date" />
+      </div>
+      <button class="btn" id="refreshBtn">Actualizar</button>
+      <div id="todayMeta" class="meta">—</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-h">
+      <h2>Tarjetas por trabajador</h2>
+      <div class="small">Haz click en “Imagen/PDF” para revisar entregas. Si OCR falló, quedará “Pendiente”.</div>
+    </div>
+    <div id="cardsGrid" class="cards"></div>
+  </section>
+
+  <section class="grid2" style="margin-top:12px;">
+    <div class="card">
+      <div class="card-h">
+        <h2>Registraron</h2>
+        <div class="small">Incluye “no requerido” (feriados/no obligatorios). El estado de horas igual se muestra.</div>
+      </div>
+      <div class="table-wrap">
+        <table class="table" id="registeredTable">
+          <thead>
+            <tr>
+              <th>Trabajador</th>
+              <th>Sueño</th>
+              <th>Estado</th>
+              <th>Archivos</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">
+        <h2>Pendientes</h2>
+        <div class="small">Solo trabajadores requeridos hoy que no registraron.</div>
+      </div>
+      <div class="table-wrap">
+        <table class="table" id="pendingTable">
+          <thead>
+            <tr>
+              <th>Trabajador</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>

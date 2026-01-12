@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    window.__API_BASE__ = "https://sleep-dashboard-api.sleep-rbyrd.workers.dev";
+    window.__MIN_SLEEP_MINUTES__ = 345;
+  </script>
+  <title>Registros · Registro iSleep – RB&RD</title>
+  
+</head>
+<body data-page="records">
+<header class="topbar">
+  <div class="brand">
+    <img src="./assets/logo-rbrd.jpg" alt="RB&RD" />
+    <div>
+      <div class="title">Registro iSleep – RB&RD</div>
+      <div class="sub">Control diario y ranking mensual</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="./index.html" data-nav="home">Hoy</a>
+    <a href="./monthly.html" data-nav="monthly">Mensual</a>
+    <a href="./records.html" data-nav="records">Registros</a>
+    <a href="./media.html" data-nav="media">Archivos</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero hero-small">
+    <div>
+      <h1>Registros del mes</h1>
+      <p class="lead">Consolidado por día (mejor registro). Si OCR falla se guarda como <b>Pendiente</b>.</p>
+    </div>
+    <div class="card hero-card">
+      <div class="field">
+        <label for="monthPicker">Mes</label>
+        <input id="monthPicker" type="month" />
+      </div>
+      <button class="btn" id="refreshBtn">Actualizar</button>
+      <div id="entriesMeta" class="meta">—</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <div class="field grow">
+        <label for="entryFilter">Filtrar por trabajador</label>
+        <input id="entryFilter" type="text" placeholder="Ej: Juan" />
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table" id="entriesTable">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Trabajador</th>
+            <th>Sueño</th>
+            <th>Estado</th>
+            <th>Fuente</th>
+            <th>Archivos</th>
+            <th>Creado (UTC)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>
